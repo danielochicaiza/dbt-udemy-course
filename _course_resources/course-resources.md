@@ -393,6 +393,8 @@ Add a new record to the table:
 INSERT INTO "AIRBNB"."RAW"."RAW_REVIEWS"
 VALUES (3176, CURRENT_TIMESTAMP(), 'Zoltan', 'excellent stay!', 'positive');
 
+INSERT INTO "AIRBNB"."RAW"."RAW_REVIEWS"
+VALUES (3176, CURRENT_TIMESTAMP(), 'Danielo', 'Qué clínica tan hermosa. Todos deberían conocerla!', 'positive');
 ```
 
 Making a full-refresh:
