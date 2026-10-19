@@ -1,0 +1,10 @@
+selectors:
+  - name: dim_except_listings_hosts
+    description: "Select all dimension models except listings with hosts"
+    definition:
+      union:
+        - method: path
+          value: models/dim
+        - exclude:
+            - method: fqn
+              value: dim_listings_hosts

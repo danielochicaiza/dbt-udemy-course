@@ -1,18 +1,25 @@
 models:
+
   - name: dim_listings_cleansed
+
+    description: "Cleansed dimension table for Airbnb listings"
+
     data_tests:
       - minimum_row_count:
           arguments:
             min_row_count: 1000
           severity: error
+
     columns:
 
     - name: listing_id
+      description: Primary key for the listings
       data_tests:
         - unique
         - not_null
 
     - name: host_id
+      description: The host's id for the hosts table.
       data_tests:
         - not_null
         - relationships:
@@ -21,6 +28,7 @@ models:
               field: host_id
 
     - name: room_type
+      description: The type of room for the listing.
       data_tests:
         - accepted_values:
             arguments:
@@ -30,6 +38,7 @@ models:
                       'Hotel room']
 
     - name: minimum_nights
+      description: '{{ doc("dim_listings_cleansed__minimum_nights") }}'
       data_tests:
         - positive_values
 
@@ -41,6 +50,7 @@ models:
     columns:
 
     - name: host_id
+      description: '{{ doc("dim_hosts_cleansed__host_id") }}'
       data_type: integer
       constraints:
         - type: not_null
@@ -48,6 +58,7 @@ models:
         - unique_values
 
     - name: host_name
+      description: '{{ doc("dim_hosts_cleansed__host_name") }}'
       data_type: string
       constraints:
         - type: not_null
@@ -62,6 +73,29 @@ models:
     
     - name: created_at
       data_type: timestamp
+
+  - name: dim_listings_hosts
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          arguments:
+            compare_model: source('airbnb', 'listings')
+
+    columns:
+    - name: price
+      tests:
+        - dbt_expectations.expect_column_values_to_be_of_type:
+            arguments:
+              column_type: number
+        - dbt_expectations.expect_column_quantile_values_to_be_between:
+            arguments:
+              quantile: .99
+              min_value: 50
+              max_value: 500
+        - dbt_expectations.expect_column_max_to_be_between:
+            arguments:
+              max_value: 10000
+            config:
+              severity: warn
 
   - name: fct_reviews
     columns:
