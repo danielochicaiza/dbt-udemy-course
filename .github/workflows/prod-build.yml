@@ -16,7 +16,7 @@ permissions:
 jobs:
   build:
     name: Production deps and build
-    if: github.repository != 'zoltanctoth/complete-dbt-bootcamp-zero-to-hero'
+    if: github.repository != 'danielochicaiza/dbt-udemy-course'
     runs-on: ubuntu-latest
     env:
       SNOWFLAKE_ACCOUNT:      "${{ secrets.SNOWFLAKE_ACCOUNT }}"
@@ -32,11 +32,11 @@ jobs:
           cache-dependency-glob: "pyproject.toml"
       - run: uv python install 3.13
       - run: uv sync
-      - run: cd airbnb && uv run dbt deps --profiles-dir _prod_profiles --target prod
-      - run: cd airbnb && uv run dbt build --profiles-dir _prod_profiles --target prod
+      - run: cd airbnb_daniel && uv run dbt deps --profiles-dir _prod_profiles --target prod
+      - run: cd airbnb_daniel && uv run dbt build --profiles-dir _prod_profiles --target prod
       - name: Upload prod target as artifact
         uses: actions/upload-artifact@v4
         with:
           name: prod-target
-          path: airbnb/target/
+          path: airbnb_daniel/target/
           retention-days: 90

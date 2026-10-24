@@ -29,7 +29,7 @@ env:
 
 jobs:
   build:
-    if: github.repository == 'zoltanctoth/complete-dbt-bootcamp-zero-to-hero'
+    if: github.repository == 'danielochicaiza/dbt-udemy-course'
     name: ${{ matrix.python-version == '3.13' && format('dbt full build ({0})', matrix.python-version) || format('dbt debug ({0})', matrix.python-version) }}
     runs-on: ${{ matrix.runs-on }}
     strategy:
@@ -79,26 +79,26 @@ jobs:
         echo "$PROFILES_YML" > ~/.dbt/profiles.yml
     - name: Execute dbt debug
       run: |
-        cd airbnb
+        cd airbnb_daniel
         uv run dbt debug
     - name: Install packages
       run: |
-        cd airbnb
+        cd airbnb_daniel
         uv run dbt deps
     - name: dbt build
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |
-        cd airbnb
+        cd airbnb_daniel
         uv run dbt build ${{ steps.dbt_options.outputs.exclude }}
     - name: Test dbt inline commands
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |
-        cd airbnb
+        cd airbnb_daniel
         uv run bash ../.github/scripts/test_commands.sh core
     - name: dbt docs generate
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |
-        cd airbnb
+        cd airbnb_daniel
         uv run dbt docs generate
     - name: Install dbt fusion
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
@@ -109,12 +109,12 @@ jobs:
     - name: dbtf build (Fusion)
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |
-        cd airbnb
+        cd airbnb_daniel
         ~/.local/bin/dbt build ${{ steps.dbt_options.outputs.exclude }}
     - name: Test dbt inline commands (Fusion)
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |
-        cd airbnb
+        cd airbnb_daniel
         PATH="$HOME/.local/bin:$PATH" bash ../.github/scripts/test_commands.sh fusion
 
   windows-quote-test:
@@ -156,42 +156,42 @@ jobs:
     - name: dbt debug (pwsh)
       if: matrix.shell == 'pwsh'
       shell: pwsh
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run dbt debug
     - name: dbt debug (powershell)
       if: matrix.shell == 'powershell'
       shell: powershell
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run dbt debug
     - name: dbt deps (pwsh)
       if: matrix.shell == 'pwsh'
       shell: pwsh
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run dbt deps
     - name: dbt deps (powershell)
       if: matrix.shell == 'powershell'
       shell: powershell
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run dbt deps
     - name: dbt build (pwsh)
       if: matrix.shell == 'pwsh'
       shell: pwsh
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run dbt build
     - name: dbt build (powershell)
       if: matrix.shell == 'powershell'
       shell: powershell
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run dbt build
     - name: Inline command quoting tests (pwsh cell)
       if: matrix.shell == 'pwsh'
       shell: pwsh
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run pwsh -File ../.github/scripts/test_commands.ps1
     - name: Inline command quoting tests (powershell cell)
       if: matrix.shell == 'powershell'
       shell: powershell
-      working-directory: airbnb
+      working-directory: airbnb_daniel
       run: uv run powershell -File ../.github/scripts/test_commands.ps1
 
   block-poweruser-to-main:
