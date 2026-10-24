@@ -1,5 +1,4 @@
 Cleansed dimension table for Airbnb listings.
-{% enddocs %}
 
 {% docs dim_listings_cleansed__minimum_nights %}
 The minimum number of nights required for the listing to rent this property.
@@ -24,4 +23,3 @@ Originally, the minimum values was set to `0`, but then it was updated to `1` by
 {% enddocs %}
 
 Cleansed dimension table for Airbnb listings.
-{% enddocs %}
