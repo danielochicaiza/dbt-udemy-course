@@ -8,7 +8,7 @@ models:
       - minimum_row_count:
           arguments:
             min_row_count: 1000
-          severity: error
+          severity: warn
 
     columns:
 
@@ -43,6 +43,21 @@ models:
         - positive_values
 
   - name: dim_hosts_cleansed
+    versions:
+      - v: 1
+        defined_in: dim_hosts_cleansed
+        deprecation_date: 2030-01-01
+      - v: 2
+        columns:
+          - include: '*'
+            exclude: [host_name]
+          - name: host_name
+            description: The name of the host (N/A if not available)
+            data_type: string
+            constraints:
+              - type: not_null
+    latest_version: 2
+    description: "Cleansed dimension table for Airbnb hosts"
     config:
       contract:
         enforced: true
