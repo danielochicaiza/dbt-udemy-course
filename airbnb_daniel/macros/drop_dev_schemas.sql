@@ -3,11 +3,9 @@
   {# Use the resolved target schema as the prefix (e.g. DBT_<env_name> on the dev target) #}
   {% set prefix = target.schema | upper %}
 
-  {# Safety guard: require the configured development schema prefix #}
-  {% set required_prefix = 'DBT_' %}
-  {% set prefix = 'DBT_' %}
-  {% if not prefix.startswith(required_prefix) %}
-    {{ exceptions.raise_compiler_error("Refusing to drop schemas: target.schema (" ~ prefix ~ ") is not a dev schema (must start with " ~ required_prefix ~ ")") }}
+  {# Safety guard: only drop dev schemas (prefixed DBT_), never PROD/STAGING #}
+  {% if not prefix.startswith('DBT_') %}
+    {{ exceptions.raise_compiler_error("Refusing to drop schemas: target.schema (" ~ prefix ~ ") is not a dev schema (must start with DBT_)") }}
   {% endif %}
 
   {{ log(" * drop_dev_schemas: Looking for schemas with prefix:  " ~ prefix, info=True) }}
@@ -30,7 +28,6 @@
       {% for schema in schemas %}
         {{ log(" * drop_dev_schemas: Dropping: " ~ schema, info=True) }}
         {% do run_query("DROP SCHEMA IF EXISTS " ~ schema ~ " CASCADE") %}
-        {{ log("DROP SCHEMA IF EXISTS " ~ schema ~ " CASCADE", info=True) }}
       {% endfor %}
     {% endif %}
 
