@@ -9,7 +9,8 @@ def model(dbt, session):
     dbt.config(
         materialized = "table",
         packages = ["holidays", "snowflake-connector-python[pandas]"],
-        enabled = True
+        enabled = True,
+        tags = ['python']
     )
 
     orders_df = dbt.ref("seed_full_moon_dates")

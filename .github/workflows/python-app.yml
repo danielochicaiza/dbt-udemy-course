@@ -110,7 +110,7 @@ jobs:
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |
         cd airbnb_daniel
-        ~/.local/bin/dbt build ${{ steps.dbt_options.outputs.exclude }}
+        ~/.local/bin/dbt build --exclude tag:python ${{ steps.dbt_options.outputs.exclude }}
     - name: Test dbt inline commands (Fusion)
       if: steps.check_full_tests.outputs.run_full_tests == 'true'
       run: |

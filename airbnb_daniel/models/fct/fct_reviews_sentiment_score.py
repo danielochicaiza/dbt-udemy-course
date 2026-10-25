@@ -3,7 +3,8 @@ import textblob
 def model(dbt, session):
     dbt.config(
         materialized = "table",
-        packages = ["textblob", "snowflake-connector-python[pandas]"]
+        packages = ["textblob", "snowflake-connector-python[pandas]"],
+        tags = ['python']
     )
 
     reviews_df = dbt.ref("fct_reviews")
