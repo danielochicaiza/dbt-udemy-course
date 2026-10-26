@@ -7,7 +7,7 @@ name: Build and Push Devcontainer Image
 
 on:
   push:
-    branches: [main, uv]
+    branches: [prod, uv]
     paths:
       - '.devcontainer/**'
       - 'pyproject.toml'

@@ -10,9 +10,9 @@ name: Test App
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "prod" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "prod" ]
   workflow_dispatch:
   schedule:
     - cron: '0 1 * * *'  # 2 AM CET (1 AM UTC)

@@ -7,7 +7,7 @@ name: Sync to Course Repository
 
 on:
   push:
-    branches: [main, uv]  # TODO: Remove 'uv' after testing
+    branches: [prod, uv]  # TODO: Remove 'uv' after testing
     paths:
       - '_course_resources/**'
       - 'pyproject.toml'
@@ -84,3 +84,4 @@ jobs:
           Triggered by: ${{ github.actor }}"
             git push -u origin main
           fi
+  
