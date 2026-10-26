@@ -16,7 +16,7 @@ permissions:
 jobs:
   build:
     name: Production deps and build
-    if: github.repository != 'danielochicaiza/dbt-udemy-course'
+    # if: github.repository != 'danielochicaiza/dbt-udemy-course'
     runs-on: ubuntu-latest
     env:
       SNOWFLAKE_ACCOUNT:      "${{ secrets.SNOWFLAKE_ACCOUNT }}"
