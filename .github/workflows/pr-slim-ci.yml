@@ -15,7 +15,7 @@ permissions:
 jobs:
   slim-ci:
     name: Build modified with defer to prod artifact
-    if: github.repository != 'danielochicaiza/dbt-udemy-course'
+    # if: github.repository != 'danielochicaiza/dbt-udemy-course'
     runs-on: ubuntu-latest
     env:
       SNOWFLAKE_ACCOUNT:      "${{ secrets.SNOWFLAKE_ACCOUNT }}"
